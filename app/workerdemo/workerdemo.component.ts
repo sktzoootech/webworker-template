@@ -21,8 +21,17 @@ export class WorkerDemoComponent implements OnInit {
         }, 5000);
 
         newWorker.onmessage = function(msg){
-            console.log('PrintFromMain : ', msg.data.messageFromWorkerThread);
-            newWorker.terminate();
+            
+            if(msg.data.success){
+                newWorker.terminate();
+            } else {
+                setTimeout(function(){
+                    newWorker.postMessage({messageToWorker: 'Please retry process.'});
+                }, 5000);
+            }
+            setTimeout(function(){
+                console.log('PrintFromMain : ', msg.data.messageFromWorkerThread);
+            }, 5000);
         }
     }
 }

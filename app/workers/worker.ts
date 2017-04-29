@@ -6,6 +6,12 @@ onmessage = function(msg){
 };
 
 function processMe(){
+    var test = Math.floor(Math.random() * 8) + 1;
     console.log('Starting Worker Process...');
-    postMessage({messageFromWorkerThread: "Hi main thread from worker."}, null);
+    console.log('My random number is: ', test);
+    if(test === 8){
+        postMessage({messageFromWorkerThread: "Me likey number: ", success: true}, null);
+    } else {
+        postMessage({messageFromWorkerThread: "Me no likey number: ", success: false}, null);
+    }
 }
